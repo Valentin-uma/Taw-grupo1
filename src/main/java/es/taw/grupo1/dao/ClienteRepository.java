@@ -5,6 +5,11 @@ import es.taw.grupo1.entity.Entrenador;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
+/*
+
+AUTOR: Valentin Pecqueux
+
+ */
 
 public interface ClienteRepository extends JpaRepository<Cliente,Integer> {
 

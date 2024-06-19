@@ -2,6 +2,11 @@ package es.taw.grupo1.ui;
 
 import java.util.List;
 
+/*
+
+AUTOR: Valentin Pecqueux
+
+ */
 public class RutinaObject {
 
     private String nombre;

@@ -10,6 +10,12 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 
+/*
+
+AUTOR: Valentin Pecqueux
+
+ */
+
 @Service
 public class ClienteService extends DTOService<ClienteDTO, Cliente>{
 

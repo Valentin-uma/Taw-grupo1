@@ -8,6 +8,11 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+/*
+
+AUTOR: Valentin Pecqueux
+
+ */
 @Service
 public class EjercicioService extends DTOService<EjercicioDTO, Ejercicio>{
 

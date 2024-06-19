@@ -1,6 +1,11 @@
 <%@ page import="java.util.List" %>
 <%@ page import="es.taw.grupo1.entity.*" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+
+<!--
+Autor: Valentin Pecqueux
+-->
+
 <!DOCTYPE html>
 <html>
 

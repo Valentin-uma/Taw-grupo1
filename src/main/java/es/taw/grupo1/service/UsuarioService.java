@@ -9,6 +9,12 @@ import es.taw.grupo1.entity.Usuario;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+
+/*
+
+AUTOR: Valentin Pecqueux
+
+ */
 @Service
 public class UsuarioService extends DTOService<UsuarioDTO, Usuario> {
 

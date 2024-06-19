@@ -8,6 +8,12 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 
+/*
+
+AUTOR: Valentin Pecqueux
+
+ */
+
 public interface SesionHasEjercicioRepository extends JpaRepository<SesionHasEjercicio, SesionHasEjercicioId> {
     void deleteBySesionIdsesion(Sesion sesion);
     List<SesionHasEjercicio> findBySesionIdsesion(Sesion sesion);

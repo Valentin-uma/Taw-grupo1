@@ -1,5 +1,11 @@
 package es.taw.grupo1.ui;
 
+
+/*
+
+AUTOR: Valentin Pecqueux
+
+ */
 public class EjercicioObject {
 
     private int idejercicio;

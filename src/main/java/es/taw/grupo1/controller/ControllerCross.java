@@ -1,15 +1,10 @@
 package es.taw.grupo1.controller;
 
-import com.sun.tools.jconsole.JConsoleContext;
-import es.taw.grupo1.dao.*;
 import es.taw.grupo1.entity.*;
 import es.taw.grupo1.service.*;
 import es.taw.grupo1.ui.EjercicioObject;
-import es.taw.grupo1.ui.RutinaObject;
 import es.taw.grupo1.ui.SessionObject;
 import jakarta.servlet.http.HttpSession;
-import jakarta.transaction.Transactional;
-import jakarta.websocket.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -17,10 +12,15 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.view.RedirectView;
 
 import java.util.*;
-import java.util.stream.Collectors;
+
+/*
+
+AUTOR: Valentin Pecqueux
+
+ */
 
 @org.springframework.stereotype.Controller
-public class Controller {
+public class ControllerCross {
 
     @Autowired
     UsuarioService usuarioService;

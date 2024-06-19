@@ -6,6 +6,12 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 
+/*
+
+AUTOR: Valentin Pecqueux
+
+ */
+
 public interface SesionRepository extends JpaRepository<Sesion,Integer> {
     List<Sesion> findByRutinaIdrutina(Rutina rutina);
 }

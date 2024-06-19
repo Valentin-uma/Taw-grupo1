@@ -11,6 +11,13 @@
 <%@ page import="org.hibernate.dialect.identity.SybaseJconnIdentityColumnSupport" %>
 <%@ page import="es.taw.grupo1.ui.SessionObject" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+
+
+<!--
+    Autor: Valentin Pecqueux
+-->
+
+
 <!DOCTYPE html>
 <html>
 

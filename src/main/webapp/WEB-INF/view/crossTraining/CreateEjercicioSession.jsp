@@ -9,6 +9,11 @@
 <%@ page import="es.taw.grupo1.ui.SessionObject" %>
 <%@ page import="es.taw.grupo1.ui.RutinaObject" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+
+<!--
+Autor: Valentin Pecqueux
+-->
+
 <!DOCTYPE html>
 <html>
 

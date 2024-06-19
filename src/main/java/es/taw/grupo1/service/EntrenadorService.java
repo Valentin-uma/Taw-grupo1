@@ -9,6 +9,11 @@ import es.taw.grupo1.entity.Entrenador;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+/*
+
+AUTOR: Valentin Pecqueux
+
+ */
 @Service
 public class EntrenadorService extends DTOService<EntrenadorDTO, Entrenador>{
 

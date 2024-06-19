@@ -8,6 +8,12 @@ import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
+/*
+
+AUTOR: Valentin Pecqueux
+
+ */
+
 public interface RutinaRepository extends JpaRepository<Rutina,Integer> {
     List<Rutina> findByEntrenadorIdentrenador(Entrenador entrenador);
 

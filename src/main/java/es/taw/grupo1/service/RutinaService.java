@@ -14,6 +14,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+/*
+
+AUTOR: Valentin Pecqueux
+
+ */
 @Service
 public class RutinaService extends DTOService<RutinaDTO, Rutina>{
 
