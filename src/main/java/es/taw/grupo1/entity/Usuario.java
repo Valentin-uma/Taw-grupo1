@@ -12,8 +12,11 @@ import lombok.Setter;
 public class Usuario implements DTO<Usuario> {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "idusuario", nullable = false, length = 255)
-    private String id;
+    @Column(name = "idusuario", nullable = false)
+    private Integer id;
+
+    @Column(name = "email", nullable = false)
+    private String email;
 
     @Column(name = "contrasena", nullable = false)
     private String contrasena;
