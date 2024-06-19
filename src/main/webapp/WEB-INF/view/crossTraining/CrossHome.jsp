@@ -3,6 +3,11 @@
 <%@ page import="es.taw.grupo1.entity.Usuario" %>
 <%@ page import="es.taw.grupo1.entity.Cliente" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+
+<!--
+Autor: Valentin Pecqueux
+-->
+
 <!DOCTYPE html>
 <html>
 
@@ -10,62 +15,38 @@
 
     List<Rutina> rutinasList = (List<Rutina>) request.getAttribute("rutinas");
     List<Cliente> clientesList = (List<Cliente>) request.getAttribute("clientes");
+    List<String> typesRutinas = (List<String>) request.getAttribute("typesRutinas");
+
 
 %>
 <head>
     <title>Entrenador page</title>
-    <style>
-        body {
-            display: flex;
-            font-family: Arial, sans-serif;
-        }
-        .sidebar {
-            width: 50%;
-            padding: 20px;
-            box-shadow: 2px 0 5px rgba(0,0,0,0.1);
-            overflow-y: auto;
-            height: 100vh;
-        }
-        .main-content {
-            flex: 1;
-            padding: 20px;
-            overflow-y: auto;
-        }
-        .rutina, .client {
-            border: 1px solid #ddd;
-            padding: 10px;
-            margin-bottom: 10px;
-            border-radius: 5px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        }
-        .rutina button, .client button {
-            margin-top: 10px;
-        }
-        .add-button {
+    <style><%@include file="./static/CrossHome.css"%></style>
 
-            bottom: 20px;
-            right: 20px;
-            padding: 10px 20px;
-            background-color: #007bff;
-            color: white;
-            border: none;
-            border-radius: 50%;
-            cursor: pointer;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-        }
-        .add-button:hover {
-            background-color: #0056b3;
-        }
-    </style>
 </head>
 <body>
+
 <div class="sidebar">
     <h2>Rutinas</h2>
+    <form action="/crossFiltrar" method="post">
+
+        <select name="filtro">
+            <option value="null"></option>
+            <%for (String type : typesRutinas){
+            %>
+            <option value="<%=type%>"><%=type%></option>
+            <%}%>
+        </select>
+
+        <input type="submit" value="Filtrar">
+    </form>
     <%for (Rutina rutina: rutinasList){%>
         <div class="rutina">
-            <h3>${rutina.name}</h3>
-            <p>${rutina.description}</p>
-            <a onclick="editRutina(<%=rutina.getId()%>)">Editar</a>
+            <h3><%=rutina.getNombre()%></h3>
+            <p><%=rutina.getDescripcion()%></p>
+            <p>Tipo: <%=rutina.getTipo()%></p>
+            <button onclick="editRutina(<%=rutina.getId()%>)">Editar</button>
+            <button onclick="deleteRutina(<%=rutina.getId()%>)">Borrar</button>
         </div>
     <%};%>
     <button class="add-button" onclick="createRutina()">+</button>
@@ -90,7 +71,18 @@
         window.location.href = '/createRutina';
     }
     function editClient(id) {
-        window.location.href = '/editCliente/'+id;
+        window.location.href = '/manageClient/'+id;
+    }
+    function deleteRutina(idRutina) {
+        if (confirm("Are you sure you want to delete this Rutina?")) {
+            fetch('/rutina/'+idRutina, {
+                method: 'DELETE'
+            })
+                .then(response => {
+                    window.location.reload(); // Refresh the page
+                })
+
+        }
     }
 </script>
 </body>

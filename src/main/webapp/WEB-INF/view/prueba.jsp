@@ -4,7 +4,7 @@
     </head>
 
     <body>
-        <h1>holaaaa</h1>
+        <h1 style="text-align: center">Hola ! type localhost:8080/cross to connect as an entrenador !</h1>
     </body>
 
 </html>

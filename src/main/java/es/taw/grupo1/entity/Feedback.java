@@ -11,18 +11,23 @@ import java.time.Instant;
 @Entity
 @Table(name = "feedback")
 public class Feedback {
-    @EmbeddedId
-    private FeedbackId id;
-
-    @MapsId("sesionIdsesion")
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "sesion_idsesion", nullable = false)
-    private Sesion sesionIdsesion;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "idfeedback", nullable = false)
+    private Integer id;
 
     @Column(name = "fecha", nullable = false)
     private Instant fecha;
 
     @Column(name = "descripcion", nullable = false)
     private String descripcion;
+
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "sesion_idsesion", nullable = false)
+    private Sesion sesionIdsesion;
+
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "cliente_idcliente", nullable = false)
+    private Cliente clienteIdcliente;
 
 }

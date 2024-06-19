@@ -1,5 +1,6 @@
 package es.taw.grupo1.entity;
 
+import es.taw.grupo1.dto.DTO;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -8,7 +9,7 @@ import lombok.Setter;
 @Setter
 @Entity
 @Table(name = "usuario")
-public class Usuario {
+public class Usuario implements DTO<Usuario> {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "idusuario", nullable = false, length = 255)
@@ -31,4 +32,17 @@ public class Usuario {
     @Column(name = "sexo")
     private String sexo;
 
+
+    public Usuario toDTO() {
+        Usuario usuario = new Usuario();
+        usuario.setId(this.id);
+        usuario.setEmail(this.email);
+        usuario.setContrasena(this.contrasena);
+        usuario.setNombre(this.nombre);
+        usuario.setApellido(this.apellido);
+        usuario.setRangoEdad(this.rangoEdad);
+        usuario.setSexo(this.sexo);
+        return usuario;
+
+    }
 }

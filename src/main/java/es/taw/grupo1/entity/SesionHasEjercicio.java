@@ -28,4 +28,7 @@ public class SesionHasEjercicio {
     @Column(name = "repeticiones", nullable = false)
     private Integer repeticiones;
 
+    @Column(name = "peso", nullable = false)
+    private Integer peso;
+
 }
