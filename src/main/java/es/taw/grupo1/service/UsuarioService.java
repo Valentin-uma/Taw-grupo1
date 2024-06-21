@@ -2,10 +2,7 @@ package es.taw.grupo1.service;
 
 import es.taw.grupo1.dao.*;
 import es.taw.grupo1.dto.UsuarioDTO;
-import es.taw.grupo1.entity.Cliente;
-import es.taw.grupo1.entity.Ejercicio;
-import es.taw.grupo1.entity.Entrenador;
-import es.taw.grupo1.entity.Usuario;
+import es.taw.grupo1.entity.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -44,6 +41,7 @@ public class UsuarioService extends DTOService<UsuarioDTO, Usuario> {
     }
 
     public void initBdd(){
+
         Usuario usuario1 = new Usuario();
         usuario1.setNombre("Valentin");
         usuario1.setContrasena("mdp");
@@ -245,6 +243,46 @@ public class UsuarioService extends DTOService<UsuarioDTO, Usuario> {
         ejercicio8.setGrupoMuscular("Cuerpo entero");
         ejercicio8.setUrlDemo("");
         ejercicioRepository.save(ejercicio8);
+
+        // Rubén Ipiña Rivas
+
+        Rutina rutina1 = new Rutina();
+        rutina1.setNombre("Rutina para principiantes");
+        rutina1.setDescripcion("La rutina perfecta para quien esta empezando");
+        rutina1.setEntrenadorIdentrenador(entrenador);
+        rutina1.setTipo("Cross");
+        rutinaRepository.save(rutina1);
+
+        cliente.setRutinaIdrutina(rutina1);
+        clienteRepository.save(cliente);
+
+        Sesion sesion1 = new Sesion();
+        sesion1.setDia("L");
+        sesion1.setRutinaIdrutina(rutina1);
+        sesionRepository.save(sesion1);
+
+        Sesion sesion2 = new Sesion();
+        sesion2.setDia("V");
+        sesion2.setRutinaIdrutina(rutina1);
+        sesionRepository.save(sesion2);
+
+        SesionHasEjercicio sesionhasejercicio1 = new SesionHasEjercicio();
+        sesionhasejercicio1.setEjercicioIdejercicio(ejercicio1);
+        sesionhasejercicio1.setPeso(0);
+        sesionhasejercicio1.setSeries(10);
+        sesionhasejercicio1.setRepeticiones(5);
+        sesionhasejercicio1.setSesionIdsesion(sesion1);
+        sesionhasejercicio1.setId(new SesionHasEjercicioId());
+        sesionHasEjercicioRepository.save(sesionhasejercicio1);
+
+        SesionHasEjercicio sesionhasejercicio2 = new SesionHasEjercicio();
+        sesionhasejercicio2.setEjercicioIdejercicio(ejercicio2);
+        sesionhasejercicio2.setPeso(0);
+        sesionhasejercicio2.setSeries(20);
+        sesionhasejercicio2.setRepeticiones(50);
+        sesionhasejercicio2.setSesionIdsesion(sesion2);
+        sesionhasejercicio2.setId(new SesionHasEjercicioId());
+        sesionHasEjercicioRepository.save(sesionhasejercicio2);
 
     }
 

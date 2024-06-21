@@ -47,17 +47,13 @@ public class ControllerCross {
     FeedbackService feedbackService;
 
 
-    @GetMapping("/")
+    /*@GetMapping("/")
     public String index(HttpSession session) {
-
 
         session.setAttribute("userId",usuarioService.getIdFromEmailAndPassword("Tibo@email.com","mdp3"));
 
-
-
-
         return "prueba";
-    }
+    }*/
 
     @GetMapping("/initBdd")
     public String initBdd(HttpSession session) {
