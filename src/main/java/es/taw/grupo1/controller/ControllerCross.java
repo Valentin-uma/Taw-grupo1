@@ -313,12 +313,12 @@ public class ControllerCross {
         return new RedirectView("/manageClient/"+clienteId);
     }
 
-    @GetMapping("/testcreateFeedback/{idRutina}/{idCliente}")
+    /*@GetMapping("/testcreateFeedback/{idRutina}/{idCliente}")
     public RedirectView testcreateFeedback(Model model, HttpSession session, @PathVariable("idCliente") String idCliente,@PathVariable("idRutina") String idRutina ){
 
         feedbackService.createTestFeedbackForRutina(idRutina,idCliente);
         return new RedirectView("/manageClient/"+idCliente);
-    }
+    }*/
 
     @PostMapping("/crossFiltrar")
     public RedirectView crossFiltrar(Model model,HttpSession session,@RequestParam("filtro") String filtro){

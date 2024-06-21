@@ -13,7 +13,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import java.text.Normalizer;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /*
 * Autor: Rubén Ipiña Rivas
@@ -86,43 +88,28 @@ public class ControllerCliente {
     @GetMapping("/miRutina")
     public String miRutina(HttpSession session, Model m) {
 
-        // Primero, garantizamos que el usuario se encuentra logeado
         if(session.getAttribute("usuario") == null){
             return "redirect:/login";
         }
 
         Usuario usuario = (Usuario) session.getAttribute("usuario");
+        Cliente cliente = clienteRepository.findCienteByUsuario(usuario);
+        Rutina rutina = cliente.getRutinaIdrutina();
 
-        // Vamos a buscar la entidad cliente a la que está asociada el usuario
-
-        Cliente c = clienteRepository.findCienteByUsuario(usuario);
-
-        // Con la entidad cliente, vamos a recuperar la rutina
-        Rutina r = c.getRutinaIdrutina();
-
-        // Si aún no hay una rutina asociada, vamos a la página noRutina
-        if(r == null){
+        if(rutina == null){
             return "cliente/noRutina";
         }
 
-        // En cambio, si hay una rutina, se la pasaremos al model.      Deberíamos añadirle un campo nombre a la rutina
-
-        m.addAttribute("rutina", r);
-
-        // Buscamos las sesiones de la rutina y las añadimos también al modelo
-
-        List<Sesion> sesiones = sesionRepository.findByRutinaIdrutina(r);
-
-        // Recopilamos los ejercicioHasSesion de cada sesión y se los pasamos al modelo
-
-        List<SesionHasEjercicio> sesionHasEjerciciosList = new ArrayList<SesionHasEjercicio>();
+        m.addAttribute("rutina", rutina);
+        List<Sesion> sesiones = sesionRepository.findByRutinaIdrutina(rutina);
+        Map<String, List<SesionHasEjercicio>> sesionHasEjerciciosMap = new HashMap();
 
         for(Sesion sesion: sesiones){
-            sesionHasEjerciciosList.addAll(sesionHasEjercicioRepository.findBySesionIdsesion(sesion));
+            sesionHasEjerciciosMap.put(sesion.getDia(), sesionHasEjercicioRepository.findBySesionIdsesion(sesion));
         }
 
-        // Pasamos sesionHasEjerciciosList al modelo
-        m.addAttribute("sesionHasEjerciciosList", sesionHasEjerciciosList);
+        m.addAttribute("usuario", usuario);
+        m.addAttribute("sesionHasEjerciciosMap", sesionHasEjerciciosMap);
 
         return "cliente/miRutina";
     }
