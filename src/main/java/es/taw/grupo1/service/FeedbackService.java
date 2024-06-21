@@ -41,7 +41,7 @@ public class FeedbackService extends DTOService<FeedbackDTO, Feedback>{
         return feedbackRepository.findByClienteIdclienteId(idcliente);
     }
 
-    public void createTestFeedbackForRutina(String idRutina, String idCliente){
+    /*public void createTestFeedbackForRutina(String idRutina, String idCliente){
         Feedback feedback = new Feedback();
 
         List<Sesion> sesions = sesionRepository.findByRutinaIdrutina(rutinaRepository.getReferenceById(Integer.parseInt(idRutina)));
@@ -51,5 +51,5 @@ public class FeedbackService extends DTOService<FeedbackDTO, Feedback>{
         feedback.setClienteIdcliente(clienteRepository.getReferenceById(Integer.parseInt(idCliente)));
         feedback.setFecha(new Date().toInstant());
         feedbackRepository.save(feedback);
-    }
+    }*/
 }

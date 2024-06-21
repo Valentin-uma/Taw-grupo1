@@ -19,6 +19,13 @@ public class SesionHasEjercicioId implements java.io.Serializable {
     @Column(name = "ejercicio_idejercicio", nullable = false)
     private Integer ejercicioIdejercicio;
 
+    public SesionHasEjercicioId() {}
+
+    public SesionHasEjercicioId(Integer sesionIdsesion, Integer ejercicioIdejercicio) {
+        this.sesionIdsesion = sesionIdsesion;
+        this.ejercicioIdejercicio = ejercicioIdejercicio;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

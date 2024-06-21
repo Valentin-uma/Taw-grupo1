@@ -6,6 +6,9 @@ import es.taw.grupo1.entity.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.Instant;
+import java.util.Date;
+
 
 /*
 
@@ -35,6 +38,8 @@ public class UsuarioService extends DTOService<UsuarioDTO, Usuario> {
 
     @Autowired
     ClienteRepository clienteRepository;
+    @Autowired
+    private FeedbackRepository feedbackRepository;
 
     public int getIdFromEmailAndPassword(String email,String password){
         return usuarioRepository.getIdFromEmailAndPassword(email,password);
@@ -272,7 +277,7 @@ public class UsuarioService extends DTOService<UsuarioDTO, Usuario> {
         sesionhasejercicio1.setSeries(10);
         sesionhasejercicio1.setRepeticiones(5);
         sesionhasejercicio1.setSesionIdsesion(sesion1);
-        sesionhasejercicio1.setId(new SesionHasEjercicioId());
+        sesionhasejercicio1.setId(new SesionHasEjercicioId(sesion1.getId(), ejercicio1.getId()));
         sesionHasEjercicioRepository.save(sesionhasejercicio1);
 
         SesionHasEjercicio sesionhasejercicio2 = new SesionHasEjercicio();
@@ -281,8 +286,18 @@ public class UsuarioService extends DTOService<UsuarioDTO, Usuario> {
         sesionhasejercicio2.setSeries(20);
         sesionhasejercicio2.setRepeticiones(50);
         sesionhasejercicio2.setSesionIdsesion(sesion2);
-        sesionhasejercicio2.setId(new SesionHasEjercicioId());
+        sesionhasejercicio2.setId(new SesionHasEjercicioId(sesion2.getId(), ejercicio2.getId()));
         sesionHasEjercicioRepository.save(sesionhasejercicio2);
+
+        Feedback feedback1 = new Feedback();
+        feedback1.setFecha(new Date());
+        feedback1.setClienteIdcliente(cliente);
+        feedback1.setSeries_hechas(7);
+        feedback1.setRepeticiones_hechas(3);
+        feedback1.setPeso(5);
+        feedback1.setSesionHasEjercicio(sesionhasejercicio1);
+
+        feedbackRepository.save(feedback1);
 
     }
 
