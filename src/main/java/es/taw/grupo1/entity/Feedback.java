@@ -20,24 +20,27 @@ public class Feedback {
     @Column(name = "fecha", nullable = false)
     private Date fecha;
 
-    @Column(name = "series_hechas", nullable = false)
-    private Integer series_hechas;
-
-    @Column(name = "repeticiones_hechas", nullable = false)
-    private Integer repeticiones_hechas;
-
-    @Column(name = "peso", nullable = false)
-    private Integer peso;
-
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumns({
-            @JoinColumn(name = "sesion_idsesion", referencedColumnName = "sesion_idsesion", nullable = false),
-            @JoinColumn(name = "ejercicio_idejercicio", referencedColumnName = "ejercicio_idejercicio", nullable = false)
-    })
-    private SesionHasEjercicio sesionHasEjercicio;
+    @Column(name = "descripcion", nullable = false)
+    private String descripcion;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "cliente_idcliente", nullable = false)
     private Cliente clienteIdcliente;
+
+    @Column(name = "series")
+    private Integer series;
+
+    @Column(name = "repeticiones")
+    private Integer repeticiones;
+
+    @Column(name = "peso")
+    private Integer peso;
+
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumns({
+            @JoinColumn(name = "sesion_has_ejercicio_sesion_idsesion", referencedColumnName = "sesion_idsesion", nullable = false),
+            @JoinColumn(name = "sesion_has_ejercicio_ejercicio_idejercicio", referencedColumnName = "ejercicio_idejercicio", nullable = false)
+    })
+    private SesionHasEjercicio sesionHasEjercicio;
 
 }

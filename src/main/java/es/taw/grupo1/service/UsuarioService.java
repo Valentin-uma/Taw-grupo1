@@ -258,6 +258,7 @@ public class UsuarioService extends DTOService<UsuarioDTO, Usuario> {
         rutina1.setTipo("Cross");
         rutinaRepository.save(rutina1);
 
+
         cliente.setRutinaIdrutina(rutina1);
         clienteRepository.save(cliente);
 
@@ -271,30 +272,44 @@ public class UsuarioService extends DTOService<UsuarioDTO, Usuario> {
         sesion2.setRutinaIdrutina(rutina1);
         sesionRepository.save(sesion2);
 
+        SesionHasEjercicioId sesionHasEjercicioId = new SesionHasEjercicioId();
+        sesionHasEjercicioId.setEjercicioIdejercicio(ejercicio1.getId());
+        sesionHasEjercicioId.setSesionIdsesion(sesion1.getId());
+
         SesionHasEjercicio sesionhasejercicio1 = new SesionHasEjercicio();
         sesionhasejercicio1.setEjercicioIdejercicio(ejercicio1);
         sesionhasejercicio1.setPeso(0);
         sesionhasejercicio1.setSeries(10);
         sesionhasejercicio1.setRepeticiones(5);
         sesionhasejercicio1.setSesionIdsesion(sesion1);
-        sesionhasejercicio1.setId(new SesionHasEjercicioId(sesion1.getId(), ejercicio1.getId()));
+        sesionhasejercicio1.setId(sesionHasEjercicioId);
         sesionHasEjercicioRepository.save(sesionhasejercicio1);
 
-        SesionHasEjercicio sesionhasejercicio2 = new SesionHasEjercicio();
+        /*SesionHasEjercicio sesionhasejercicio2 = new SesionHasEjercicio();
         sesionhasejercicio2.setEjercicioIdejercicio(ejercicio2);
         sesionhasejercicio2.setPeso(0);
         sesionhasejercicio2.setSeries(20);
         sesionhasejercicio2.setRepeticiones(50);
         sesionhasejercicio2.setSesionIdsesion(sesion2);
-        sesionhasejercicio2.setId(new SesionHasEjercicioId(sesion2.getId(), ejercicio2.getId()));
+        sesionhasejercicio2.setId(new SesionHasEjercicioId());
         sesionHasEjercicioRepository.save(sesionhasejercicio2);
+
+        SesionHasEjercicio sesionhasejercicio3 = new SesionHasEjercicio();
+        sesionhasejercicio3.setEjercicioIdejercicio(ejercicio3);
+        sesionhasejercicio3.setPeso(0);
+        sesionhasejercicio3.setSeries(14);
+        sesionhasejercicio3.setRepeticiones(32);
+        sesionhasejercicio3.setSesionIdsesion(sesion2);
+        sesionhasejercicio3.setId(new SesionHasEjercicioId());
+        sesionHasEjercicioRepository.save(sesionhasejercicio3);*/
 
         Feedback feedback1 = new Feedback();
         feedback1.setFecha(new Date());
         feedback1.setClienteIdcliente(cliente);
-        feedback1.setSeries_hechas(7);
-        feedback1.setRepeticiones_hechas(3);
+        feedback1.setSeries(7);
+        feedback1.setRepeticiones(3);
         feedback1.setPeso(5);
+        feedback1.setDescripcion("hola descripcioin");
         feedback1.setSesionHasEjercicio(sesionhasejercicio1);
 
         feedbackRepository.save(feedback1);
