@@ -5,10 +5,13 @@
 <%@ page import="es.taw.grupo1.entity.Usuario" %>
 <%@ page import="java.util.Map" %>
 <%@ page import="java.util.ArrayList" %>
+<%@ page import="java.util.Date" %>
+<%@ page import="java.text.SimpleDateFormat" %>
 <%
     Rutina rutina = (Rutina) request.getAttribute("rutina");
     Usuario usuario = (Usuario) request.getAttribute("usuario");
     Map<String, List<SesionHasEjercicio>> sesionHasEjercicioMap = (Map<String, List<SesionHasEjercicio>>) request.getAttribute("sesionHasEjerciciosMap");
+
 %>
 <html>
     <head>
@@ -58,7 +61,7 @@
                 }
             %>
         </table>
-
+        <br><a href="/feedback">Feedback</a>
         <br><a href="/salir">Cerrar sesion</a>
     </body>
 </html>

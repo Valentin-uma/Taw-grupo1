@@ -19,5 +19,6 @@ public interface SesionRepository extends JpaRepository<Sesion,Integer> {
 
     List<Sesion> findByRutinaIdrutina(Rutina rutina);
 
+    Sesion findByRutinaIdrutinaAndDia(Rutina rutina, String dia);
 
 }

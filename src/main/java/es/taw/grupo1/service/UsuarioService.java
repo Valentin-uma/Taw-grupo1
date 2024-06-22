@@ -285,7 +285,7 @@ public class UsuarioService extends DTOService<UsuarioDTO, Usuario> {
         sesionhasejercicio1.setId(sesionHasEjercicioId);
         sesionHasEjercicioRepository.save(sesionhasejercicio1);
 
-        /*SesionHasEjercicio sesionhasejercicio2 = new SesionHasEjercicio();
+        SesionHasEjercicio sesionhasejercicio2 = new SesionHasEjercicio();
         sesionhasejercicio2.setEjercicioIdejercicio(ejercicio2);
         sesionhasejercicio2.setPeso(0);
         sesionhasejercicio2.setSeries(20);
@@ -301,9 +301,9 @@ public class UsuarioService extends DTOService<UsuarioDTO, Usuario> {
         sesionhasejercicio3.setRepeticiones(32);
         sesionhasejercicio3.setSesionIdsesion(sesion2);
         sesionhasejercicio3.setId(new SesionHasEjercicioId());
-        sesionHasEjercicioRepository.save(sesionhasejercicio3);*/
+        sesionHasEjercicioRepository.save(sesionhasejercicio3);
 
-        Feedback feedback1 = new Feedback();
+        /*Feedback feedback1 = new Feedback();
         feedback1.setFecha(new Date());
         feedback1.setClienteIdcliente(cliente);
         feedback1.setSeries(7);
@@ -312,7 +312,7 @@ public class UsuarioService extends DTOService<UsuarioDTO, Usuario> {
         feedback1.setDescripcion("hola descripcioin");
         feedback1.setSesionHasEjercicio(sesionhasejercicio1);
 
-        feedbackRepository.save(feedback1);
+        feedbackRepository.save(feedback1);*/
 
     }
 
