@@ -14,6 +14,7 @@ Autor: Valentin Pecqueux
     List<Rutina> rutinasList = (List<Rutina>) request.getAttribute("rutinas");
     Cliente cliente = (Cliente) request.getAttribute("cliente");
     List<Feedback> feedbacks = (List<Feedback>) request.getAttribute("feedbacks");
+    List<Ejercicio> ejercicios = (List<Ejercicio>) request.getAttribute("ejercicios");
 
 
 
@@ -85,9 +86,9 @@ Rutina asignada :
 
     <%for (Feedback feedback : feedbacks) {%>
 
-    <h3>Feedback para la rutina: <%=feedback.getSesionIdsesion().getRutinaIdrutina().getNombre()%></h3>
+    <h3>Feedback para la rutina: <%=feedback.getSesionHasEjercicio().getSesionIdsesion().getRutinaIdrutina().getNombre()%></h3>
     <h4>Para la session de los <%
-    switch (feedback.getSesionIdsesion().getDia()){
+    switch (feedback.getSesionHasEjercicio().getSesionIdsesion().getDia()){
         case "L":
             out.println("Lunes");
             break;
@@ -117,6 +118,21 @@ Rutina asignada :
     %></h4>
     <h4>Feedback dado el <%=feedback.getFecha()%></h4>
 
+    <%Ejercicio findEjercicio = null;
+        int idEjercicio = feedback.getSesionHasEjercicio().getId().getEjercicioIdejercicio();
+    for (Ejercicio ejercicio : ejercicios) {
+        if (ejercicio.getId().equals(idEjercicio)) {
+            findEjercicio = ejercicio;
+        }
+    }
+        assert findEjercicio != null;
+    %>
+
+    <h4>Sobre el ejercicio: <%= findEjercicio.getNombre()%></h4>
+
+    <h5>Numero de series realizadas: <%=feedback.getSeries()%></h5>
+    <h5>Numero de repeticiones realizadas: <%=feedback.getRepeticiones()%></h5>
+    <h5>Peso usado: <%=feedback.getPeso()%></h5>
 
     <p>Contenido: <%=feedback.getDescripcion()%></p>
 

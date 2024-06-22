@@ -15,5 +15,6 @@ public interface EntrenadorRepository extends JpaRepository<Entrenador, Integer>
 
     @Query("select e from Entrenador e where e.usuarioIdusuario.id = :id")
     public Entrenador getEntrenadorByIdUser(@Param("id")int id);
+    boolean existsByUsuarioIdusuario_Id(Integer usuarioId);
 
 }

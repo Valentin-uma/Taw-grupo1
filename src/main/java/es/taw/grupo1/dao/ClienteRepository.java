@@ -24,4 +24,6 @@ public interface ClienteRepository extends JpaRepository<Cliente,Integer> {
     @Query("select c from Cliente c where c.usuarioIdusuario = :idusuario")
     Cliente findCienteByUsuario(@Param("idusuario") Usuario idusuario);
 
+    boolean existsByUsuarioIdusuario_Id(Integer usuarioId);
+
 }

@@ -84,7 +84,19 @@ public class ControllerCliente {
         Usuario usuario = usuarioRepository.findById(id).get();
         session.setAttribute("usuario", usuario);
 
-        return "redirect:/miRutina";
+
+            if(clienteRepository.existsByUsuarioIdusuario_Id(usuario.getId())){
+                return "redirect:/miRutina";
+            }
+            else if(entrenadorRepository.existsByUsuarioIdusuario_Id(usuario.getId())){
+                return "redirect:/cross";
+            }
+            else{
+                return "redirect:/errorLogin";
+            }
+
+
+
     }
 
 

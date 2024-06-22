@@ -302,6 +302,7 @@ public class ControllerCross {
         model.addAttribute("rutinas", rutinaService.findAll());
         model.addAttribute("cliente", clienteService.getReferenceById(Integer.parseInt(id)));
         model.addAttribute("feedbacks",feedbackService.findByClienteIdclienteId(Integer.parseInt(id)));
+        model.addAttribute("ejercicios",ejercicioService.findAll());
 
         return "crossTraining/ManageClientHome";
     }
