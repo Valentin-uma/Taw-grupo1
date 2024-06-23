@@ -9,6 +9,8 @@ import es.taw.grupo1.entity.Sesion;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+// Autor: Valentin Pecqueux
+
 @Service
 public class SesionService extends DTOService<SesionDTO, Sesion> {
 

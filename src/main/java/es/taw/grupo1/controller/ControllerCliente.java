@@ -2,6 +2,8 @@ package es.taw.grupo1.controller;
 
 import es.taw.grupo1.dao.*;
 import es.taw.grupo1.entity.*;
+import es.taw.grupo1.service.*;
+import es.taw.grupo1.ui.FiltroHistorial;
 import es.taw.grupo1.ui.FormFecha;
 import es.taw.grupo1.ui.FormLogin;
 import es.taw.grupo1.ui.FormSubmitFeedback;
@@ -14,14 +16,17 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.text.DateFormat;
 import java.text.Normalizer;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
 /*
-* Autor: Rubén Ipiña Rivas
-* */
+
+AUTOR: Rubén Ipiña Rivas    100%
+
+ */
 
 @Controller
 public class ControllerCliente {
@@ -42,6 +47,18 @@ public class ControllerCliente {
     private SesionHasEjercicioRepository sesionHasEjercicioRepository;
     @Autowired
     private FeedbackRepository feedbackRepository;
+    @Autowired
+    private FeedbackService feedbackService;
+    @Autowired
+    private SesionHasEjercicioService sesionHasEjercicioService;
+    @Autowired
+    private RutinaService rutinaService;
+    @Autowired
+    private UsuarioService usuarioService;
+    @Autowired
+    private ClienteService clienteService;
+    @Autowired
+    private EntrenadorService entrenadorService;
 
     @GetMapping("/")
     public String index(HttpSession session) {
@@ -75,31 +92,27 @@ public class ControllerCliente {
         // Tenemos que asegurarnos de que existe un usuario con esa contraseña
         Integer id;
         try{
-            id = usuarioRepository.getIdFromEmailAndPassword(formLogin.getEmail(), formLogin.getContrasena());
+            id = usuarioService.getIdFromEmailAndPassword(formLogin.getEmail(), formLogin.getContrasena());
         }catch(Exception e){
             return "redirect:/errorLogin";
         }
 
         // Una vez tenemos la id del usuario, buscamos la entidad y la ponemos en un atributo de la sesión
-        Usuario usuario = usuarioRepository.findById(id).get();
+        Usuario usuario = usuarioService.findUsuarioById(id);
         session.setAttribute("usuario", usuario);
 
 
-            if(clienteRepository.existsByUsuarioIdusuario_Id(usuario.getId())){
+            if(clienteService.existsByUsuarioIdusuario_Id(usuario)){
                 return "redirect:/miRutina";
             }
-            else if(entrenadorRepository.existsByUsuarioIdusuario_Id(usuario.getId())){
+            else if(entrenadorService.existsByUsuarioIdusuario_Id(usuario)){
                 return "redirect:/cross";
             }
             else{
                 return "redirect:/errorLogin";
             }
 
-
-
     }
-
-
 
     @GetMapping("/miRutina")
     public String miRutina(HttpSession session, Model m) {
@@ -109,20 +122,15 @@ public class ControllerCliente {
         }
 
         Usuario usuario = (Usuario) session.getAttribute("usuario");
-        Cliente cliente = clienteRepository.findCienteByUsuario(usuario);
-        Rutina rutina = cliente.getRutinaIdrutina();
+        Rutina rutina = rutinaService.getRutina(usuario);
 
         if(rutina == null){
             return "cliente/noRutina";
         }
 
         m.addAttribute("rutina", rutina);
-        List<Sesion> sesiones = sesionRepository.findByRutinaIdrutina(rutina);
-        Map<String, List<SesionHasEjercicio>> sesionHasEjerciciosMap = new HashMap();
 
-        for(Sesion sesion: sesiones){
-            sesionHasEjerciciosMap.put(sesion.getDia(), sesionHasEjercicioRepository.findBySesionIdsesion(sesion));
-        }
+        Map<String, List<SesionHasEjercicio>> sesionHasEjerciciosMap = sesionHasEjercicioService.getSesionHasEjerciciosMap(rutina);
 
         m.addAttribute("usuario", usuario);
         m.addAttribute("sesionHasEjerciciosMap", sesionHasEjerciciosMap);
@@ -151,59 +159,12 @@ public class ControllerCliente {
             return "redirect:/login";
         }
 
-        SimpleDateFormat formato = new SimpleDateFormat("dd-MM-yyyy");
-        Date fecha = null;
-        try {
-            fecha = formato.parse(formFecha.getFecha());
-        } catch (Exception e) {
+        Usuario usuario = (Usuario) session.getAttribute("usuario");
+        List<SesionHasEjercicio> sesionHasEjercicioList = sesionHasEjercicioService.listaSesionHasEjercicio(formFecha, usuario);
+
+        if(sesionHasEjercicioList == null){
             return "redirect:/feedback";
         }
-
-        Calendar calendario = Calendar.getInstance();
-        calendario.setTime(fecha);
-        int dayOfWeek = calendario.get(Calendar.DAY_OF_WEEK);
-
-        String dia;
-        switch (dayOfWeek) {
-            case Calendar.MONDAY:
-                dia = "L";
-                break;
-            case Calendar.TUESDAY:
-                dia = "M";
-                break;
-            case Calendar.WEDNESDAY:
-                dia = "X";
-                break;
-            case Calendar.THURSDAY:
-                dia = "J";
-                break;
-            case Calendar.FRIDAY:
-                dia = "V";
-                break;
-            case Calendar.SATURDAY:
-                dia = "S";
-                break;
-            case Calendar.SUNDAY:
-                dia = "D";
-                break;
-            default:
-                dia = "";
-        }
-
-
-        // Vamos a buscar los ejercicios correspondientes para la fecha
-
-        Usuario usuario = (Usuario) session.getAttribute("usuario");
-        Cliente cliente = clienteRepository.findCienteByUsuario(usuario);
-        Rutina rutina = cliente.getRutinaIdrutina();
-
-        // Buscamos una sesion de la rutina y dia correspondientes
-
-        Sesion sesion = sesionRepository.findByRutinaIdrutinaAndDia(rutina, dia);
-
-        // Encontramos los ejercicios correspondientes a la sesion
-
-        List<SesionHasEjercicio> sesionHasEjercicioList = sesionHasEjercicioRepository.findBySesionIdsesion(sesion);
 
         m.addAttribute("textoFecha", formFecha.getFecha());
         m.addAttribute("formFecha", new FormFecha());
@@ -216,31 +177,13 @@ public class ControllerCliente {
     @PostMapping("/submitFeedback")
     public String submitFeedback(@ModelAttribute("formSubmitFeedback") FormSubmitFeedback formSubmitFeedback, HttpSession session){
 
-        Feedback feedback = new Feedback();
-        feedback.setDescripcion(formSubmitFeedback.getComentarios());
-        feedback.setRepeticiones(formSubmitFeedback.getRepeticionesRealizadas());
-        feedback.setSeries(formSubmitFeedback.getSeriesRealizadas());
-        feedback.setPeso(formSubmitFeedback.getPesoUtilizado());
-        Usuario usuario = (Usuario) session.getAttribute("usuario");
-        Cliente cliente = clienteRepository.findCienteByUsuario(usuario);
-        Ejercicio ejercicio = ejercicioRepository.findById(formSubmitFeedback.getEjercicioId()).get();
-        Sesion sesion = sesionRepository.findById(formSubmitFeedback.getSesionId()).get();
-        feedback.setSesionHasEjercicio(sesionHasEjercicioRepository.findSesionHasEjercicioByEjercicioIdejercicioAndSesionIdsesion(ejercicio, sesion));
-
-        SimpleDateFormat formato = new SimpleDateFormat("dd-MM-yyyy");
-        Date fecha = null;
-        try {
-            fecha = formato.parse(formSubmitFeedback.getFechaSubmit());
-        } catch (ParseException e) {
-            return "redirect:/feedback";
+        if(session.getAttribute("usuario") == null){
+            return "redirect:/login";
         }
 
-        feedback.setFecha(fecha);
-        feedback.setClienteIdcliente(cliente);
-        feedbackRepository.save(feedback);
+        feedbackService.submitFeedback(formSubmitFeedback, (Usuario) session.getAttribute("usuario"));
 
-
-        return "redirect:/feedback";
+        return "redirect:/feedbackAnadidoCorrectamente";
     }
 
     @GetMapping("/historial")
@@ -250,24 +193,71 @@ public class ControllerCliente {
             return "redirect:/login";
         }
 
-        // Vamos a agrupar todos los feedbacks por dia en un HashMap y llevarlo al model
-        List<Feedback> feedbackList = feedbackRepository.findAll();
-        Map<String, List<Feedback>> feedbackMap = new HashMap<>();
-        for(Feedback feedback : feedbackList){
-            if(!feedbackMap.containsKey(feedback.getFecha().toString())){
-                ArrayList<Feedback> feedbacks = new ArrayList<>();
-                feedbackMap.put(feedback.getFecha().toString(), feedbacks);
-                feedbacks.add(feedback);
-            }else{
-                feedbackMap.get(feedback.getFecha().toString()).add(feedback);
-            }
+        Map<String, List<Feedback>> feedbackMap = feedbackService.getFeedbackMap();
+
+        if(feedbackMap == null){
+            return "redirect:/feedback";
         }
 
         m.addAttribute("feedbackMap", feedbackMap);
-
-
+        m.addAttribute("filtroHistorial", new FiltroHistorial());
 
         return "cliente/historial";
+    }
+
+    @PostMapping("/filtrarHistorial")
+    public String filtrarHistorial(HttpSession session, Model m, @ModelAttribute("filtroHistorial") FiltroHistorial filtroHistorial) {
+
+        if(session.getAttribute("usuario") == null){
+            return "redirect:/login";
+        }
+
+        Map<String, List<Feedback>> feedbackMap = feedbackService.getFeedbackMap(filtroHistorial);
+
+        if(feedbackMap == null){
+            return "redirect:/filtroErroneo";
+        }
+
+        m.addAttribute("feedbackMap", feedbackMap);
+        m.addAttribute("filtroHistorial", new FiltroHistorial());
+        m.addAttribute("fechaMin", filtroHistorial.getFechaMin());
+        m.addAttribute("fechaMax", filtroHistorial.getFechaMax());
+
+        return "cliente/historial";
+    }
+
+    @GetMapping("/eliminarFeedback")
+    public String eliminarFeedback(HttpSession session, @RequestParam("feedbackId") Integer feedbackId) {
+
+        if(session.getAttribute("usuario") == null){
+            return "redirect:/login";
+        }
+
+        feedbackService.eliminarFeedbackById(feedbackId);
+
+        return "redirect:/historial";
+    }
+
+    @GetMapping("/filtroErroneo")
+    public String filtroErroneo(HttpSession session) {
+
+        if(session.getAttribute("usuario") == null){
+            return "redirect:/login";
+        }
+
+        return "cliente/filtroErroneo";
+
+    }
+
+    @GetMapping("/feedbackAnadidoCorrectamente")
+    public String feedbackAnadidoCorrectamente(HttpSession session, Model m) {
+
+        if(session.getAttribute("usuario") == null){
+            return "redirect:/login";
+        }
+
+        return "cliente/feedbackAnadidoCorrectamente";
+
     }
 
 }

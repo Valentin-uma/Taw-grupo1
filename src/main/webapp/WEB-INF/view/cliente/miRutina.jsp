@@ -18,6 +18,12 @@
         <title>Mi Rutina</title>
     </head>
     <body>
+        <nav>
+            <a>Mi rutina</a>
+            <a href="/feedback">Feedback</a>
+            <a href="/historial">Historial</a>
+            <a href="/salir">Cerrar Sesion</a>
+        </nav>
         <h1>Bienvenido, <%= usuario.getNombre() %> </h1>
         <%= rutina.getNombre() %>, de tipo <%= rutina.getTipo() %>: <%= rutina.getDescripcion() %>
         <h2>Ejericios: </h2>
@@ -46,11 +52,14 @@
                             for(SesionHasEjercicio sesionHasEjercicio: sesionHasEjercicioList){
                         %>
                                 <div style="background-color: lightblue; margin: 3px; padding: 3px; border-radius: 3px">
-                                    Ejercicio: <span style="font-weight: bold"><%= sesionHasEjercicio.getEjercicioIdejercicio().getNombre() %></span><br>
+                                    Ejercicio: <span style="font-weight: bold"><%= sesionHasEjercicio.getEjercicioIdejercicio().getNombre() %></span><br><br>
+                                    Grupo muscular: <span style="font-weight: bold"><%= sesionHasEjercicio.getEjercicioIdejercicio().getGrupoMuscular() %></span><br>
+                                    Dificultad: <span style="font-weight: bold"><%= sesionHasEjercicio.getEjercicioIdejercicio().getDificultad() %></span><br>
+                                    Calorias: <span style="font-weight: bold"><%= sesionHasEjercicio.getEjercicioIdejercicio().getCalorias() %></span><br><br>
                                     Series: <span style="font-weight: bold"><%= sesionHasEjercicio.getSeries() %></span><br>
                                     Repeticiones: <span style="font-weight: bold"><%= sesionHasEjercicio.getRepeticiones() %></span><br>
                                     Peso: <span style="font-weight: bold"><%= sesionHasEjercicio.getPeso()%></span><br>
-                                    Video: <span style="font-weight: bold"><%= sesionHasEjercicio.getEjercicioIdejercicio().getUrlDemo()%></span>
+                                    <a href="<%= sesionHasEjercicio.getEjercicioIdejercicio().getUrlDemo()%>">Video</a>
                                 </div>
                         <%
                             }
@@ -61,7 +70,5 @@
                 }
             %>
         </table>
-        <br><a href="/feedback">Feedback</a>
-        <br><a href="/salir">Cerrar sesion</a>
     </body>
 </html>

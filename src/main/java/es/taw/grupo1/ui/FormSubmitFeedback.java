@@ -2,6 +2,8 @@ package es.taw.grupo1.ui;
 
 import es.taw.grupo1.entity.SesionHasEjercicioId;
 
+// Autor: Rubén Ipiña
+
 public class FormSubmitFeedback {
     private Integer seriesRealizadas;
     private Integer repeticionesRealizadas;

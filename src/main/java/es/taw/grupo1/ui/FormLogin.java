@@ -1,5 +1,7 @@
 package es.taw.grupo1.ui;
 
+// Autor: Rubén Ipiña
+
 public class FormLogin {
     private String email;
     private String contrasena;

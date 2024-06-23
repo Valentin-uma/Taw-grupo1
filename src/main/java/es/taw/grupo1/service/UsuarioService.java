@@ -12,7 +12,8 @@ import java.util.Date;
 
 /*
 
-AUTOR: Valentin Pecqueux
+AUTOR: Valentin Pecqueux 75%
+AUTOR: Rubén Ipiña 25%
 
  */
 @Service
@@ -170,13 +171,13 @@ public class UsuarioService extends DTOService<UsuarioDTO, Usuario> {
         clienteRepository.save(cliente6);
 
         Ejercicio ejercicio1 = new Ejercicio();
-        ejercicio1.setNombre("Levantamiento de potencia");
+        ejercicio1.setNombre("Dominadas lastradas");
         ejercicio1.setTipo("FUERZA");
         ejercicio1.setCalorias(180);
-        ejercicio1.setDificultad("facil");
+        ejercicio1.setDificultad("dificil");
         ejercicio1.setDescripcion("Ejercicio de fuerza para desarrollar la potencia muscular.");
         ejercicio1.setGrupoMuscular("Piernas, espalda");
-        ejercicio1.setUrlDemo("");
+        ejercicio1.setUrlDemo("https://youtu.be/C0I0gb76yaA?feature=shared");
         ejercicioRepository.save(ejercicio1);
 
         Ejercicio ejercicio2 = new Ejercicio();
@@ -186,7 +187,7 @@ public class UsuarioService extends DTOService<UsuarioDTO, Usuario> {
         ejercicio2.setDificultad("facil");
         ejercicio2.setDescripcion("Ejercicio de velocidad que consiste en carreras cortas y rápidas.");
         ejercicio2.setGrupoMuscular("Piernas, corazón");
-        ejercicio2.setUrlDemo("");
+        ejercicio2.setUrlDemo("https://youtu.be/-Ot-dP1xST4?feature=shared");
         ejercicioRepository.save(ejercicio2);
 
         Ejercicio ejercicio3 = new Ejercicio();
@@ -196,7 +197,7 @@ public class UsuarioService extends DTOService<UsuarioDTO, Usuario> {
         ejercicio3.setDificultad("facil");
         ejercicio3.setDescripcion("Ejercicio aeróbico que mejora la resistencia cardiovascular.");
         ejercicio3.setGrupoMuscular("Piernas, corazón");
-        ejercicio3.setUrlDemo("");
+        ejercicio3.setUrlDemo("https://youtu.be/udhRFATkN44?feature=shared");
         ejercicioRepository.save(ejercicio3);
 
         Ejercicio ejercicio4 = new Ejercicio();
@@ -206,7 +207,7 @@ public class UsuarioService extends DTOService<UsuarioDTO, Usuario> {
         ejercicio4.setDificultad("facil");
         ejercicio4.setDescripcion("Ejercicio de flexibilidad que combina posturas físicas y respiración.");
         ejercicio4.setGrupoMuscular("Cuerpo entero");
-        ejercicio4.setUrlDemo("");
+        ejercicio4.setUrlDemo("https://youtu.be/j7rKKpwdXNE?feature=shared");
         ejercicioRepository.save(ejercicio4);
 
         Ejercicio ejercicio5 = new Ejercicio();
@@ -216,7 +217,7 @@ public class UsuarioService extends DTOService<UsuarioDTO, Usuario> {
         ejercicio5.setDificultad("medio");
         ejercicio5.setDescripcion("Ejercicio aeróbico que trabaja todo el cuerpo y mejora la capacidad pulmonar.");
         ejercicio5.setGrupoMuscular("Cuerpo entero");
-        ejercicio5.setUrlDemo("");
+        ejercicio5.setUrlDemo("https://youtu.be/2KhqIa5ates?feature=shared");
         ejercicioRepository.save(ejercicio5);
 
         Ejercicio ejercicio6 = new Ejercicio();
@@ -226,7 +227,7 @@ public class UsuarioService extends DTOService<UsuarioDTO, Usuario> {
         ejercicio6.setDificultad("facil");
         ejercicio6.setDescripcion("Ejercicio de fuerza que fortalece las piernas y glúteos.");
         ejercicio6.setGrupoMuscular("Piernas, glúteos");
-        ejercicio6.setUrlDemo("");
+        ejercicio6.setUrlDemo("https://youtu.be/gcNh17Ckjgg?feature=shared");
         ejercicioRepository.save(ejercicio6);
 
         Ejercicio ejercicio7 = new Ejercicio();
@@ -236,7 +237,7 @@ public class UsuarioService extends DTOService<UsuarioDTO, Usuario> {
         ejercicio7.setDificultad("facil");
         ejercicio7.setDescripcion("Ejercicio de fuerza que trabaja el pecho, hombros y tríceps.");
         ejercicio7.setGrupoMuscular("Pecho, hombros, tríceps");
-        ejercicio7.setUrlDemo("");
+        ejercicio7.setUrlDemo("https://youtu.be/IODxDxX7oi4?feature=shared");
         ejercicioRepository.save(ejercicio7);
 
         Ejercicio ejercicio8 = new Ejercicio();
@@ -246,10 +247,8 @@ public class UsuarioService extends DTOService<UsuarioDTO, Usuario> {
         ejercicio8.setDificultad("facil");
         ejercicio8.setDescripcion("Ejercicio de flexibilidad para mejorar la movilidad y prevenir lesiones.");
         ejercicio8.setGrupoMuscular("Cuerpo entero");
-        ejercicio8.setUrlDemo("");
+        ejercicio8.setUrlDemo("https://youtu.be/TWtaSxV_2IQ?feature=shared");
         ejercicioRepository.save(ejercicio8);
-
-        // Rubén Ipiña Rivas
 
         Rutina rutina1 = new Rutina();
         rutina1.setNombre("Rutina para principiantes");
@@ -303,19 +302,11 @@ public class UsuarioService extends DTOService<UsuarioDTO, Usuario> {
         sesionhasejercicio3.setId(new SesionHasEjercicioId());
         sesionHasEjercicioRepository.save(sesionhasejercicio3);
 
-        /*Feedback feedback1 = new Feedback();
-        feedback1.setFecha(new Date());
-        feedback1.setClienteIdcliente(cliente);
-        feedback1.setSeries(7);
-        feedback1.setRepeticiones(3);
-        feedback1.setPeso(5);
-        feedback1.setDescripcion("hola descripcioin");
-        feedback1.setSesionHasEjercicio(sesionhasejercicio1);
-
-        feedbackRepository.save(feedback1);*/
-
     }
 
+    public Usuario findUsuarioById(Integer id){
+        return usuarioRepository.findById(id).get();
+    }
 
 
 }

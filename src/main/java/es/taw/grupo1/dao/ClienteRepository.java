@@ -11,7 +11,8 @@ import org.springframework.data.repository.query.Param;
 import java.util.List;
 /*
 
-AUTOR: Valentin Pecqueux
+AUTOR: Valentin Pecqueux    40%
+AUTOR: Rubén Ipiña Rivas    60%
 
  */
 

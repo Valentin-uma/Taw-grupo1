@@ -9,6 +9,7 @@ import es.taw.grupo1.entity.Administrador;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+// Autor: Valentin Pecqueux
 
 @Service
 public class AdministradorService extends DTOService<AdministradorDTO, Administrador>{

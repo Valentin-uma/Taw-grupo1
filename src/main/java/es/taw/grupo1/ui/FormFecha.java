@@ -2,6 +2,8 @@ package es.taw.grupo1.ui;
 
 import java.util.Date;
 
+// Autor: Rubén Ipiña
+
 public class FormFecha {
     private String fecha;
 

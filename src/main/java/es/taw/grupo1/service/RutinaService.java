@@ -16,7 +16,8 @@ import java.util.UUID;
 
 /*
 
-AUTOR: Valentin Pecqueux
+AUTOR: Valentin Pecqueux    90%
+AUTOR: Ruben Ipiña          10%
 
  */
 @Service
@@ -36,6 +37,9 @@ public class RutinaService extends DTOService<RutinaDTO, Rutina>{
 
     @Autowired
     EjercicioRepository ejercicioRepository;
+
+    @Autowired
+    ClienteRepository clienteRepository;
 
     public List<Rutina> findByEntrenadorIdentrenador(Entrenador userId){
         return rutinaRepository.findByEntrenadorIdentrenador(userId);
@@ -300,6 +304,15 @@ public class RutinaService extends DTOService<RutinaDTO, Rutina>{
 
     public List<Rutina> findAll(){
         return rutinaRepository.findAll();
+    }
+
+
+    public Rutina getRutina(Usuario usuario){
+        Cliente cliente = clienteRepository.findCienteByUsuario(usuario);
+        if(cliente == null){
+            return null;
+        }
+        return cliente.getRutinaIdrutina();
     }
 
 }

@@ -15,7 +15,7 @@ import java.util.*;
 
 /*
 
-AUTOR: Valentin Pecqueux
+AUTOR: Valentin Pecqueux    100%
 
  */
 

@@ -13,11 +13,17 @@
         <title>Feedback</title>
     </head>
     <body>
+        <nav>
+            <a href="/miRutina">Mi rutina</a>
+            <a>Feedback</a>
+            <a href="/historial">Historial</a>
+            <a href="/salir">Cerrar Sesion</a>
+        </nav>
         <h1>Feedback</h1>
         <h2>Cuentanos que tal te ha ido</h2><br>
 
         <form:form modelAttribute="formFecha" action="filtrarPorFecha" method="post">
-            Fecha: <form:input path="fecha" placeholder="dd-mm-yyyy" value="<%= textoFecha %>"/>
+            Fecha: <form:input path="fecha" type="date" value="<%= textoFecha %>"/>
             <form:button>Buscar</form:button>
         </form:form>
 
@@ -36,10 +42,10 @@
                         Series realizadas: <form:input type="number" path="seriesRealizadas"/><br>
                         Repeticiones realizadas: <form:input type="number" path="repeticionesRealizadas"/><br>
                         Peso utilizado: <form:input type="number" path="pesoUtilizado"/><br>
-                        Comentarios: <form:textarea path="comentarios"/>
+                        Comentarios: <br><form:textarea path="comentarios"/>
                         <form:hidden path="fechaSubmit" value="<%= textoFecha %>"/>
                         <form:hidden path="sesionId" value="<%= sesionHasEjercicio.getEjercicioIdejercicio().getId() %>"/>
-                        <form:hidden path="ejercicioId" value="<%= sesionHasEjercicio.getSesionIdsesion().getId() %>"/>
+                        <form:hidden path="ejercicioId" value="<%= sesionHasEjercicio.getSesionIdsesion().getId() %>"/><br>
                         <form:button>Guardar</form:button>
                     </form:form>
                 </div>

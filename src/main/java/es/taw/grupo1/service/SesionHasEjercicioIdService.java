@@ -9,6 +9,8 @@ import es.taw.grupo1.entity.SesionHasEjercicioId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+// Autor: Valentin Pecqueux
+
 @Service
 public class SesionHasEjercicioIdService extends DTOService<SesionHasEjercicioIdDTO, SesionHasEjercicioId>{
 

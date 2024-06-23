@@ -1,3 +1,7 @@
+<%
+        // Todos los jsp de la carpeta cliente están hechos por Rubén Ipiña Rivas
+%>
+
 <html>
 <head>
     <title>Error Login</title>
